@@ -1,3 +1,34 @@
+# MD Systems Reveal.js template
+
+This template is based on core Reveal.js. We added a custom theme. Everything else is standard.
+
+Besides basic styling we added some other features.
+
+## Slides with columns
+
+In order to display columns on a slide put:
+
+```
+<div class="columns">
+     <div>First column</div>
+     <div>Second column</div>
+     <div>Third column....</div>
+</div>
+```
+
+Columns will use equal space. If you want first one to be smaller you can use classes for that:
+
+```
+<div class="columns aspect-1-by-3">
+     <div>First column (25%)</div>
+     <div>Second column (75%)</div>
+</div>
+```
+
+Available classes are `aspect-1-by-2`, `aspect-1-by-3` and `aspect-2-by-3`.
+
+
+
 # reveal.js [![Build Status](https://travis-ci.org/hakimel/reveal.js.svg?branch=master)](https://travis-ci.org/hakimel/reveal.js) <a href="https://slides.com?ref=github"><img src="https://s3.amazonaws.com/static.slid.es/images/slides-github-banner-320x40.png?1" alt="Slides" width="160" height="20"></a>
 
 A framework for easily creating beautiful presentations using HTML. [Check out the live demo](http://lab.hakim.se/reveal-js/).
