@@ -27,7 +27,18 @@ Columns will use equal space. If you want first one to be smaller you can use cl
 
 Available classes are `aspect-1-by-2`, `aspect-1-by-3` and `aspect-2-by-3`.
 
+## Responsive embeds
 
+Embeds can be made responsive by adding a wrapper around them and using classes to define aspect ratio.
+
+```
+<section class="embed-responsive embed-responsive-4by3">
+  <iframe data-src="https://www.youtube.com/embed/9sJUDx7iEJw?start=16&end=47&autoplay=1" frameborder="0" allowfullscreen></iframe>
+</section>	
+
+```
+
+Add `èmbed-responsive` to the wrapper and use `embed-responsive-4by3` or `embed-responsive-16by9` to define aspect ratio.
 
 # reveal.js [![Build Status](https://travis-ci.org/hakimel/reveal.js.svg?branch=master)](https://travis-ci.org/hakimel/reveal.js) <a href="https://slides.com?ref=github"><img src="https://s3.amazonaws.com/static.slid.es/images/slides-github-banner-320x40.png?1" alt="Slides" width="160" height="20"></a>
 
