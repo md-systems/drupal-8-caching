@@ -92,22 +92,20 @@
     <section id="topics">
       <h2>Topics</h2>
       <ul>
-        <li>Basic Cache API</li>
-        <li>Cache invalidation: delete, expiration, tags</li>
-        <li>Development settings</li>
-        <li>Cache Backends: Database, Fast Chained, Redis, Memcache</li>
+        <li>Basics</li>
+        <li>Cache Backends</li>
+        <li>Cache bins</li>
+        <li>Cache invalidation</li>
         <li>Static cache</li>
-        <li>Render caching concepts, Visualization of the render cache process
-        </li>
+        <li>Render caching</li>
         <li>Cacheability metadata: Keys, Tags, Contexts, Age</li>
-        <li>Internal Page Cache vs Dynamic Page Cache vs Varnish/Fastly</li>
-        <li>Bigpipe</li>
+        <li>Page cache & BigPipe</li>
       </ul>
     </section>
 
     <section id="cache-api">
       <section>
-        <h2>Cache API</h2>
+        <h2>Basic Cache API</h2>
       </section>
 
       <section>
@@ -125,8 +123,7 @@
       <section>
         <h2>Get / Set</h2>
 
-        <pre>
-        <code class="php">
+        <pre><code class="php">
           $key = 'my-unique-cache-key';
           if ($cache = \Drupal::cache()->get($key)) {
             $data = $cache->data;
@@ -135,11 +132,20 @@
             $data = my_slow_calculation();
             \Drupal::cache()->set($key, $data);
           }
-        </code>
 
-        </pre>
+          // Alternative for multiple items
+          \Drupal::cache()->getMultiple($keys);
+          \Drupal::cache()->setMultiple($items);
+        </code></pre>
 
       </section>
+
+      <section>
+        <h>Static cache</h>
+
+
+      </section>
+
     </section>
 
     <section>
@@ -207,14 +213,174 @@
             plugins and similar discovery processes
           </li>
           <li><code>config</code> - Used for caching configuration</li>
-          <li><code>memory</code> - Memory only, when persistent storage is not
+          <li><code>memory</code> - Memory only, when persistence is not
             desired
           </li>
         </ul>
+      </section>
 
+      <section>
+        <h2>Define your own</h2>
+
+        <pre><code>
+  cache.your_bin:
+    class: Drupal\Core\Cache\CacheBackendInterface
+    tags:
+      - { name: cache.bin }
+    factory: cache_factory:get
+    arguments: [your_bin]
+        </code></pre>
+      </section>
+
+      <section>
+        <h2>Configuration</h2>
+
+        <pre><code class="php">
+// Use redis by default.
+$settings['cache']['default'] = 'cache.backend.redis';
+
+// Use the null backend to disable caching for certain bins.
+$settings['cache']['bins']['render'] = 'cache.backend.null';
+
+        </code></pre>
+
+        <p>How to configure redis (on platform.sh): <a href="https://docs.platform.sh/frameworks/drupal8/redis.html">https://docs.platform.sh/frameworks/drupal8/redis.html</a></p>
 
       </section>
 
+      <section>
+        <h2>Intermezzo: Development settings</h2>
+
+        <p>Never develop without using sites/example.settings.local.php</p>
+
+        <ul>
+          <li>Enables verbose error display</li>
+          <li>Disables CSS/JS aggregation</li>
+          <li>Can disable render cache</li>
+        </ul>
+      </section>
+
+    </section>
+
+    <section>
+      <section>
+        <h2>Cache invalidation</h2>
+        <br>
+        <blockquote cite="http://martinfowler.com/bliki/TwoHardThings.html">
+          There are only two hard things in Computer Science: cache invalidation, naming things and off-by-one errors.
+        </blockquote>
+        http://martinfowler.com/bliki/TwoHardThings.html
+      </section>
+
+      <section>
+        <h2>Delete</h2>
+        <p>In case there is a single or only a few cache item with known keys, delete them directly</p>
+
+        <pre><code class="php">
+\Drupal::cache()->delete('my-key');
+
+\Drupal::cache()->deleteMultiple(['my-key:de', 'my-key:en']);
+
+\Drupal::cache()->deleteAll();
+        </code></pre>
+
+        <p>Faster than cache tags, no runtime overhead. If possible, just write new caches instead of using delete()</p>
+      </section>
+
+      <section>
+        <h2>Invalidate</h2>
+        <p>Same methods as delete, except invalidate*(). Does not actually delete just marks records as invalidated.</p>
+
+        <pre><code class="php">
+\Drupal::cache()->invalidate('my-key');
+
+\Drupal::cache()->invalidateMultiple(['my-key:de', 'my-key:en']);
+
+\Drupal::cache()->invalidateAll();
+        </code></pre>
+
+        <p>Extremely rarely used. Core has a single invalidate call and that is actually wrong*.</p>
+
+        <p>* Might be my fault.</p>
+      </section>
+
+      <section>
+        <h2>Expiration</h2>
+        <p>Set a fixed expiration time for a cache item on write.</p>
+
+        <p>Examples</p>
+
+        <pre><code class="php">
+// Cache for 10 minutes, not known if/when it changes.
+$cache->set($key, $data, REQUEST_TIME + 600);
+
+// $data is only valid today.
+$cache->set($key, $data, strtotime('tomorrow midnight'));
+        </code></pre>
+
+        <br>
+        <p><strong>Note</strong>: Expiration is a timestamp, not an age</p>
+      </section>
+
+      <section>
+        <h2>Cache tags</h2>
+        <p>Dependencies of your cache: entities, configuration, custom</p>
+
+        <pre><code class="php">
+// Data must be invalidated if node 1 or the node settings change.
+$cache->set($key, $data, ..., ['node:1', 'config:node.settings', 'my_tag']);
+
+// Tag invalidation is across all bins.
+$cache_tag_invalidator->invalidateTags(['my_tag']);
+Cache::invalidateTags(['my_tag']);
+
+        </code></pre>
+
+        <p>Entity and Config cache tags are invalidated automatically. Use custom cache tags for unknown amount of cache item variations.</p>
+
+        <p>PS: ... = CacheBackendInterface::CACHE_PERMANENT</p>
+
+        <p><a href="https://www.drupal.org/docs/8/api/cache-api/cache-tags">https://www.drupal.org/docs/8/api/cache-api/cache-tags</a></p>
+      </section>
+
+      <section>
+        <h2>Behind the Scenes: Cache tags</h2>
+        <ul>
+          <li>Invalidations of each cache tag are counted by the checksum service.</li>
+          <li>When writing a cache item, the sum of invalidations of all given cache tags is stored as checksum</li>
+          <li>When reading the cache item, the invalidations are counted again and compared</li>
+          <li>If the checksum is different, then the item is invalid.</li>
+        </ul>
+
+        <p>Runtime overhead on every cache read. Limit cache tags to the required minimum.</p>
+
+      </section>
+
+      <section>
+        <h2>Allow invalid</h2>
+
+        <p>Invalid data can still be used. For invalidate(), expiration and tags.</p>
+
+        <pre><code class="php">
+$cache = \Drupal::cache()->get('my-key', TRUE);
+if ($cache && $cache->valid) {
+  return $cache->data;
+}
+elseif (\Drupal::lock()->acquire('my-key')) {
+  // Rebuild and set new data.
+}
+elseif ($cache) {
+  // Someone else is rebulding, work with stale data.
+  return $cache->data;
+}
+else {
+  // Wait or rebuild.
+}
+        </code></pre>
+
+<p>Other uses: Rebuild in background (queue), min-age</p>
+
+      </section>
     </section>
 
     <section id="light-slide" data-background-color="white">
