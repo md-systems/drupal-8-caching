@@ -1,122 +1,265 @@
 <!doctype html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <title>MD Systems slides template</title>
+  <title>Drupal 8 Caching overview</title>
 
-    <link rel="stylesheet" href="css/reveal.css">
-    <link rel="stylesheet" href="css/theme/md_systems.css">
+  <link rel="stylesheet" href="css/reveal.css">
+  <link rel="stylesheet" href="css/theme/md_systems.css">
 
-    <!-- Theme used for syntax highlighting of code -->
-    <link rel="stylesheet" href="lib/css/zenburn.css">
+  <!-- Theme used for syntax highlighting of code -->
+  <link rel="stylesheet" href="lib/css/zenburn.css">
 
-    <!-- Printing and PDF exports -->
-    <script>
-      var link = document.createElement( 'link' );
-      link.rel = 'stylesheet';
-      link.type = 'text/css';
-      link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
-      document.getElementsByTagName( 'head' )[0].appendChild( link );
-    </script>
-  </head>
-  <body>
-    <div class="reveal">
-      <div class="slides">
-	<section id="front">
-	  <!--<img src="img/EVENT-LOGO.png" style="border: none; height: 300px" />-->
-	  <h2>Drupal 8 Caching overview</h2>
-	  <a href="https://www.drupal.org/u/berdir">Sascha Grossenbacher</a> | <a href="http://twitter.com/berdir">@berdir</a> | <a href="http://md-systems.ch">md-systems.ch</a>
-	  <p>
-	    <a href="http://md-systems.github.io/drupal-8-caching">md-systems.github.io/drupal-8-caching</a>
-	  </p>
-	</section>
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+    document.getElementsByTagName('head')[0].appendChild(link);
+  </script>
+</head>
+<body>
+<div class="reveal">
+  <div class="slides">
+    <section id="front">
+      <!--<img src="img/EVENT-LOGO.png" style="border: none; height: 300px" />-->
+      <h2>Drupal 8 Caching overview</h2>
+      <a href="https://www.drupal.org/u/berdir">Sascha Grossenbacher</a> | <a
+      href="http://twitter.com/berdir">@berdir</a> | <a
+      href="http://md-systems.ch">md-systems.ch</a>
+      <p>
+        <a href="http://md-systems.github.io/drupal-8-caching">md-systems.github.io/drupal-8-caching</a>
+      </p>
+    </section>
 
-	<section>
-	  <section id="about-presenter">
-	    <div class="columns aspect-1-by-3">
-	      <div>
-		<img data-src="https://farm6.staticflickr.com/5641/30911659922_00c14ebe0e_k_d.jpg" />
-	      </div>
-	      <div>
-		<h3>Janez Urevc (<a href="https://drupal.org/u/slashrsm">@slashrsm</a>)</h3>
-		<ul>
-		  <li>senior engineer and team lead at MD Systems</li>
-		  <li class="fragment">Active member of Drupal community since 2009</li>
-		  <li class="fragment">Lead of the D8 media initiative</li>
-		  <li class="fragment">ex Examiner.com</li>
-		</ul>
-	      </div>
-	    </div>
-	  </section>
+    <section>
+      <section id="about-presenter">
+        <div class="columns aspect-1-by-3">
+          <div>
+            @todo IMAGE
+          </div>
+          <div>
+            <h3>Sascha Grossenbacher (<a href="https://drupal.org/u/berdir">@berdir</a>)
+            </h3>
+            <ul>
+              <li>Lead developer at MD Systems</li>
+              <li class="fragment">Active member of Drupal community since
+                2008
+              </li>
+              <li class="fragment">Maintainer of the Entity system and plenty of
+                contrib projects
+              </li>
+              <li class="fragment">"Core generalist", top 5 D8 contributor</li>
+              <li class="fragment">#3 on <a
+                href="http://drupal.stackexchange.com/users/31/berdir">Drupal
+                answers</a></li>
+            </ul>
+          </div>
+        </div>
+      </section>
 
-	  <section>
-	    <h2>MD Systems - top contributors</h2>
-	    <div class="columns">
-	      <div>
-		<img data-src="md_assets/credits.png" />
-	      </div>
-	      <div>
-		<ul>
-		  <li>our CTO (<a href="https://drupal.org/u/berdir">@berdir</a>) is one of top 5 D8 contributors</li>
-		  <li>D8 expert</li>
-		  <li>D8 media expert - lots of media clients</li>
-		  <li>20% of every project to the community</li>
-		  <li>Full projects, audits, bootstrap weeks, consulting, architecture, ...</li>
-		</ul>
-	      </div>
-	      <aside class="notes">
-		<ul>
-		  <li>top 5 D8 ind. contrib.</li>
-		  <li>D8 expert</li>
-		  <li>D8 media expert (NP8)</li>
-		</ul>
-	      </aside>
-	  </section>
-	</section>
+      <section>
+        <h2>MD Systems - top contributors</h2>
+        <div class="columns">
+          <div>
+            <img data-src="md_assets/credits.png"/>
+          </div>
+          <div>
+            <ul>
+              <li>D8 expert</li>
+              <li>D8 media expert - lots of media clients</li>
+              <li>20% of every project to the community</li>
+              <li>Full projects, audits, bootstrap weeks, consulting,
+                architecture, ...
+              </li>
+            </ul>
+          </div>
+          <aside class="notes">
+            <ul>
+              <li>top 5 D8 ind. contrib.</li>
+              <li>D8 expert</li>
+              <li>D8 media expert (NP8)</li>
+            </ul>
+          </aside>
+        </div>
+      </section>
+    </section>
 
-	<section id="dark-slide">
-	  <ul>
-	    <li>First item</li>
-	    <li>Second item</li>
-	  </ul>
-	</section>
+    <section id="topics">
+      <h2>Topics</h2>
+      <ul>
+        <li>Basic Cache API</li>
+        <li>Cache invalidation: delete, expiration, tags</li>
+        <li>Development settings</li>
+        <li>Cache Backends: Database, Fast Chained, Redis, Memcache</li>
+        <li>Static cache</li>
+        <li>Render caching concepts, Visualization of the render cache process
+        </li>
+        <li>Cacheability metadata: Keys, Tags, Contexts, Age</li>
+        <li>Internal Page Cache vs Dynamic Page Cache vs Varnish/Fastly</li>
+        <li>Bigpipe</li>
+      </ul>
+    </section>
 
-	<section id="light-slide" data-background-color="white">
-	  <ul>
-	    <li>First item</li>
-	    <li>Second item</li>
-	  </ul>
-	</section>
+    <section id="cache-api">
+      <section>
+        <h2>Cache API</h2>
+      </section>
 
-	<section id="last">
-	  <h2>Thank you! Questions?</h2>
-	  <a href="https://www.drupal.org/u/slashrsm">Janez Urevc</a> | <a href="http://twitter.com/slashrsm">@slashrsm</a> | <a href="https://janezurevc.name">janezurevc.name</a>
-	  <p>
-	    <a href="http://md-systems.github.io/online-slides-url">md-systems.github.io/online-slides-url</a>
-	  </p>
-</section>
+      <section>
+        <h2>Why cache?</h2>
 
-      </div>
-    </div>
+        <p><strong>Goal</strong><br> Improve performance</p>
 
-    <script src="lib/js/head.min.js"></script>
-    <script src="js/reveal.js"></script>
+        <p>
+          <strong>How</strong><br>
+          Store the result of slow calculations so that they do not need to be
+          executed again
+        </p>
+      </section>
 
-    <script>
-      // More info https://github.com/hakimel/reveal.js#configuration
-      Reveal.initialize({
-      history: true,
+      <section>
+        <h2>Get / Set</h2>
 
-      // More info https://github.com/hakimel/reveal.js#dependencies
-      dependencies: [
-      { src: 'plugin/markdown/marked.js' },
-      { src: 'plugin/markdown/markdown.js' },
-      { src: 'plugin/notes/notes.js', async: true },
-      { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
-      ]
-      });
-    </script>
-  </body>
+        <pre>
+        <code class="php">
+          $key = 'my-unique-cache-key';
+          if ($cache = \Drupal::cache()->get($key)) {
+            $data = $cache->data;
+          }
+          else {
+            $data = my_slow_calculation();
+            \Drupal::cache()->set($key, $data);
+          }
+        </code>
+
+        </pre>
+
+      </section>
+    </section>
+
+    <section>
+      <section>
+        <h2>Cache backends</h2>
+        <p>Storage for cache items</p>
+      </section>
+
+      <section>
+        <h3>Core</h3>
+        <ul>
+          <li>Memory: In-Memory storage, not persisted across requests</li>
+          <li>Database: Default storage in the (SQL) database</li>
+          <li>APCu: Shared-Memory, not shared with CLI/multiple servers</li>
+          <li>Null: No caching at all</li>
+        </ul>
+      </section>
+
+      <section>
+        <h3>Contrib</h3>
+        <ul>
+          <li><a href="https://www.drupal.org/project/slushi_cache">Slushi Cache</a>: A database backend with a configurable max lifetime</li>
+          <li><a href="https://www.drupal.org/project/redis">Redis</a>: Drupal 8 version maintained by me. Only alpha but heavily used by us.</li>
+          <li><a href="https://www.drupal.org/project/memcache">Memcache</a>: No personal experience with the 8.x version. Alpha</li>
+        </ul>
+      </section>
+
+
+      <section>
+        <h2>ChainedFast Backend</h2>
+        <p>Problem: APCu is fast but not shared across multiple servers/with
+          drush</p>
+
+        <ul>
+          <li>Backend that wraps a fast and a consistent backend.</li>
+          <li>A last-write timestamp is stored in consistent backend.</li>
+          <li>Loads from fast first, if missing or too old, fetch from consistent backend</li>
+          <li>If it exists there, update fast backend</li>
+        </ul>
+      </section>
+
+    </section>
+
+    <section>
+      <section>
+        <h2>Cache bins</h2>
+
+        <p>A container for cache entries with a configurable backend</p>
+
+      </section>
+
+      <section>
+
+        <h3>Standard bins</h3>
+        <ul>
+          <li><code>default</code> - Default, for small-ish, few key variations
+          </li>
+          <li><code>bootstrap</code> - For small caches used on most requests
+          </li>
+          <li><code>data</code> - Bigger caches, many key variations</li>
+          <li><code>render</code> - Used by the render cache and page cache,
+            huge amount of keys
+          </li>
+          <li><code>discovery</code> - Small, frequently used, usually for
+            plugins and similar discovery processes
+          </li>
+          <li><code>config</code> - Used for caching configuration</li>
+          <li><code>memory</code> - Memory only, when persistent storage is not
+            desired
+          </li>
+        </ul>
+
+
+      </section>
+
+    </section>
+
+    <section id="light-slide" data-background-color="white">
+      <ul>
+        <li>First item</li>
+        <li>Second item</li>
+      </ul>
+    </section>
+
+    <section id="last">
+      <h2>Thank you! Questions?</h2>
+      <a href="https://www.drupal.org/u/slashrsm">Janez Urevc</a> | <a
+      href="http://twitter.com/slashrsm">@slashrsm</a> | <a
+      href="https://janezurevc.name">janezurevc.name</a>
+      <p>
+        <a href="http://md-systems.github.io/online-slides-url">md-systems.github.io/online-slides-url</a>
+      </p>
+    </section>
+
+  </div>
+</div>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
+
+<script>
+  // More info https://github.com/hakimel/reveal.js#configuration
+  Reveal.initialize({
+    history: true,
+
+    // More info https://github.com/hakimel/reveal.js#dependencies
+    dependencies: [
+      {src: 'plugin/markdown/marked.js'},
+      {src: 'plugin/markdown/markdown.js'},
+      {src: 'plugin/notes/notes.js', async: true},
+      {
+        src: 'plugin/highlight/' +
+        'highlight.js',
+        async: true,
+        callback: function () {
+          hljs.initHighlightingOnLoad();
+        }
+      }
+    ]
+  });
+</script>
+</body>
 </html>
