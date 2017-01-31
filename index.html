@@ -96,7 +96,6 @@
         <li>Cache Backends</li>
         <li>Cache bins</li>
         <li>Cache invalidation</li>
-        <li>Static cache</li>
         <li>Render caching</li>
         <li>Cacheability metadata: Keys, Tags, Contexts, Age</li>
         <li>Page cache & BigPipe</li>
@@ -141,8 +140,41 @@
       </section>
 
       <section>
-        <h>Static cache</h>
+        <h2>Static cache</h2>
 
+        <p>Static caching refers to the concept doing in-memory, per-request
+          caching</p>
+
+        <p>In Drupal 7 and non-OOP code in Drupal 8, the function
+          drupal_static() is often used</p>
+
+        <p>In Drupal 8, using a *non-static* property on a service works in the
+          same way</p>
+
+      </section>
+
+      <section>
+        <h2>Static and persistent cache</h2>
+
+        <p>Cache backends usually do not use static cache, requesting the same
+          item twice results in two queries</p>
+
+        <pre><code class="php">
+      protected $data;
+
+      protected function getData() {
+        if ($this->data === NULL) {
+          $key = 'my-unique-cache-key';
+          if ($cache = $this->cacheBackend->get($key)) {
+            $this->data = $cache->data;
+          }
+          else {
+            $this->data = $this->buildData();
+            $this->cacheBackend->set($key, $this->data);
+          }
+        }
+        return $this->data;
+      }</code></pre>
 
       </section>
 
@@ -167,9 +199,15 @@
       <section>
         <h3>Contrib</h3>
         <ul>
-          <li><a href="https://www.drupal.org/project/slushi_cache">Slushi Cache</a>: A database backend with a configurable max lifetime</li>
-          <li><a href="https://www.drupal.org/project/redis">Redis</a>: Drupal 8 version maintained by me. Only alpha but heavily used by us.</li>
-          <li><a href="https://www.drupal.org/project/memcache">Memcache</a>: No personal experience with the 8.x version. Alpha</li>
+          <li><a href="https://www.drupal.org/project/slushi_cache">Slushi
+            Cache</a>: A database backend with a configurable max lifetime
+          </li>
+          <li><a href="https://www.drupal.org/project/redis">Redis</a>: Drupal 8
+            version maintained by me. Only alpha but heavily used by us.
+          </li>
+          <li><a href="https://www.drupal.org/project/memcache">Memcache</a>: No
+            personal experience with the 8.x version. Alpha
+          </li>
         </ul>
       </section>
 
@@ -182,9 +220,28 @@
         <ul>
           <li>Backend that wraps a fast and a consistent backend.</li>
           <li>A last-write timestamp is stored in consistent backend.</li>
-          <li>Loads from fast first, if missing or too old, fetch from consistent backend</li>
+          <li>Loads from fast first, if missing or too old, fetch from
+            consistent backend
+          </li>
           <li>If it exists there, update fast backend</li>
         </ul>
+      </section>
+
+      <section>
+        <h2>BackendChain</h2>
+        <p>Limited use cases, no non-test uses right now in core</p>
+        <p>Can be used as an alternative to the static cache pattern shown
+          before</p>
+
+        <pre><code class="php">
+$chain = new BackendChain('noop');
+$chain
+  ->appendBackend(\Drupal::cache('static'))
+  ->appendBackend(\Drupal::cache('default'));
+
+$chain->get('my-unique-cache-key');
+$chain->get('my-unique-cache-key');
+        </code></pre>
       </section>
 
     </section>
@@ -213,7 +270,7 @@
             plugins and similar discovery processes
           </li>
           <li><code>config</code> - Used for caching configuration</li>
-          <li><code>memory</code> - Memory only, when persistence is not
+          <li><code>static</code> - Memory only, when persistence is not
             desired
           </li>
         </ul>
@@ -244,7 +301,9 @@ $settings['cache']['bins']['render'] = 'cache.backend.null';
 
         </code></pre>
 
-        <p>How to configure redis (on platform.sh): <a href="https://docs.platform.sh/frameworks/drupal8/redis.html">https://docs.platform.sh/frameworks/drupal8/redis.html</a></p>
+        <p>How to configure redis (on platform.sh): <a
+          href="https://docs.platform.sh/frameworks/drupal8/redis.html">https://docs.platform.sh/frameworks/drupal8/redis.html</a>
+        </p>
 
       </section>
 
@@ -267,14 +326,16 @@ $settings['cache']['bins']['render'] = 'cache.backend.null';
         <h2>Cache invalidation</h2>
         <br>
         <blockquote cite="http://martinfowler.com/bliki/TwoHardThings.html">
-          There are only two hard things in Computer Science: cache invalidation, naming things and off-by-one errors.
+          There are only two hard things in Computer Science: cache
+          invalidation, naming things and off-by-one errors.
         </blockquote>
         http://martinfowler.com/bliki/TwoHardThings.html
       </section>
 
       <section>
         <h2>Delete</h2>
-        <p>In case there is a single or only a few cache item with known keys, delete them directly</p>
+        <p>In case there is a single or only a few cache item with known keys,
+          delete them directly</p>
 
         <pre><code class="php">
 \Drupal::cache()->delete('my-key');
@@ -284,12 +345,14 @@ $settings['cache']['bins']['render'] = 'cache.backend.null';
 \Drupal::cache()->deleteAll();
         </code></pre>
 
-        <p>Faster than cache tags, no runtime overhead. If possible, just write new caches instead of using delete()</p>
+        <p>Faster than cache tags, no runtime overhead. If possible, just write
+          new caches instead of using delete()</p>
       </section>
 
       <section>
         <h2>Invalidate</h2>
-        <p>Same methods as delete, except invalidate*(). Does not actually delete just marks records as invalidated.</p>
+        <p>Same methods as delete, except invalidate*(). Does not actually
+          delete just marks records as invalidated.</p>
 
         <pre><code class="php">
 \Drupal::cache()->invalidate('my-key');
@@ -299,7 +362,8 @@ $settings['cache']['bins']['render'] = 'cache.backend.null';
 \Drupal::cache()->invalidateAll();
         </code></pre>
 
-        <p>Extremely rarely used. Core has a single invalidate call and that is likely wrong*.</p>
+        <p>Extremely rarely used. Core has a single invalidate call and that is
+          likely wrong*.</p>
 
         <p>* Might be my fault.</p>
       </section>
@@ -336,30 +400,40 @@ Cache::invalidateTags(['my_tag']);
 
         </code></pre>
 
-        <p>Entity and Config cache tags are invalidated automatically. Use custom cache tags for unknown amount of cache item variations.</p>
+        <p>Entity and Config cache tags are invalidated automatically. Use
+          custom cache tags for unknown amount of cache item variations.</p>
 
         <p>PS: ... = CacheBackendInterface::CACHE_PERMANENT</p>
 
-        <p><a href="https://www.drupal.org/docs/8/api/cache-api/cache-tags">https://www.drupal.org/docs/8/api/cache-api/cache-tags</a></p>
+        <p><a href="https://www.drupal.org/docs/8/api/cache-api/cache-tags">https://www.drupal.org/docs/8/api/cache-api/cache-tags</a>
+        </p>
       </section>
 
       <section>
         <h2>Behind the Scenes: Cache tags</h2>
         <ul>
-          <li>Invalidations of each cache tag are counted by the checksum service.</li>
-          <li>When writing a cache item, the sum of invalidations of all given cache tags is stored as checksum</li>
-          <li>When reading the cache item, the invalidations are counted again and compared</li>
+          <li>Invalidations of each cache tag are counted by the checksum
+            service.
+          </li>
+          <li>When writing a cache item, the sum of invalidations of all given
+            cache tags is stored as checksum
+          </li>
+          <li>When reading the cache item, the invalidations are counted again
+            and compared
+          </li>
           <li>If the checksum is different, then the item is invalid.</li>
         </ul>
 
-        <p>Runtime overhead on every cache read. Limit cache tags to the required minimum.</p>
+        <p>Runtime overhead on every cache read. Limit cache tags to the
+          required minimum.</p>
 
       </section>
 
       <section>
         <h2>Allow invalid</h2>
 
-        <p>Invalid data can still be used. For invalidate(), expiration and tags.</p>
+        <p>Invalid data can still be used. For invalidate(), expiration and
+          tags.</p>
 
         <pre><code class="php">
 $cache = \Drupal::cache()->get('my-key', TRUE);
@@ -378,16 +452,117 @@ else {
 }
         </code></pre>
 
-<p>Other uses: Rebuild in background (queue), min-age</p>
+        <p>Other uses: Rebuild in background (queue), min-age</p>
 
       </section>
     </section>
 
-    <section id="light-slide" data-background-color="white">
-      <ul>
-        <li>First item</li>
-        <li>Second item</li>
-      </ul>
+    <section>
+      <section>
+        <h2>Render caching</h2>
+        <img src="images/render_cache_example.png">
+      </section>
+
+      <section>
+        <h2>Input: Render arrays</h2>
+        <img src="images/node_render_array.png">
+      </section>
+
+      <section>
+        <h2>Output: HTML</h2>
+        <img src="images/node_html.png">
+      </section>
+    </section>
+
+    <section>
+      <section>
+        <h2>Cacheability metadata</h2>
+        <ul>
+          <li>Cache Key</li>
+          <li>Cache Tags</li>
+          <li>Cache Contexts</li>
+          <li>Max Age</li>
+        </ul>
+
+        <p><a
+          href="https://www.drupal.org/developing/api/8/render/arrays/cacheability">www.drupal.org/developing/api/8/render/arrays/cacheability</a>
+        </p>
+      </section>
+
+      <section>
+        <h2>Cache Key</h2>
+        <p><i>Is my data worth caching? If yes, what identifies my data?</i></p>
+        <img src="images/node_render_array_cache_keys.png">
+      </section>
+
+      <section>
+        <h2>Cache Contexts</h2>
+        <p><i>Does my output vary by something?</i></p>
+        <p>Examples: <code>theme, language, user roles, permissions, URL, query arguments, timezone, ...</code></p>
+        <p>Cache contexts are hierachical: user, user.permissions</p>
+        <p><strong>Danger</strong>: Not setting the correct contexts can result in sensitive data being shown to normal users</p>
+        <p>Default cache contexts: <code>theme, languages:language_interface, user.permissions</code></p>
+        <p><a href="https://www.drupal.org/developing/api/8/cache/contexts">www.drupal.org/developing/api/8/cache/contexts</a></p>
+      </section>
+
+      <section>
+        <h2>Cache Contexts</h2>
+        <img src="images/node_render_array_cache_contexts.png">
+      </section>
+
+      <section>
+        <h2>Cache Tags</h2>
+        <p><i>What things does my output depend on?</i></p>
+        <p><i>What changes require that my data is regenerated?</i></p>
+          <img src="images/node_render_array_cache_tags.png">
+      </section>
+
+      <section>
+        <h2>Max Age</h2>
+        <p><i>When does my output become outdated?</i></p>
+        <ul>
+          <li>Permanent (-1)</li>
+          <li>Age in seconds (3600)</li>
+          <li>Uncacheable (0)</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>How is this stored?</h2>
+        <pre><code class="nohighlight">
+cid:      entity_view:node:4:full:[languages:language_interface]=en
+          :[theme]=bartik:[timezone]=Europe/Berlin:
+          [url.query_args:key]=:[user.permissions]=da0b1c64....:
+          [user.roles]=is-super-user
+data:     a:3:{s:7:"#markup";O:25:"Drupal\Core\Render\Markup....
+expire:   -1
+tags:     config:filter.format.basic_html config:image.style.large
+          file:1 node:4 node_view rendered taxonomy_term:1 user:1
+          user_view
+checksum: 17
+        </code></pre>
+      </section>
+
+      <section>
+        <h2>Bubbling</h2>
+        <img src="images/render_cache_bubbling.png">
+      </section>
+
+      <section>
+        <h2>Problem: List cache tags</h2>
+        <p>Every node view on your site has the node_list cache tag</p>
+        <p>Add a single "Promoted events" blog that lists event nodes with promote=1</p>
+        <p>Every time *any* node is saved, the block and every page containing that block is invalidated</p>
+      </section>
+
+      <section>
+        <h2>Solution: Views Custom Cache Tag</h2>
+        <p>Allows to use a configurable cache, e.g. event:promoted</p>
+        <p>Placeholders: news:section:{{ raw_arguments.arg1 }}</p>
+        <p>Requires code to define/invalidate cache tags in a hook_entity_presave()</p>
+        <p><a href="https://www.drupal.org/project/views_custom_cache_tag">www.drupal.org/project/views_custom_cache_tag</a> </p>
+      </section>
+
     </section>
 
     <section id="last">
