@@ -102,8 +102,8 @@
       </ul>
     </section>
 
-    <section id="cache-api">
-      <section>
+    <section>
+      <section id="cache-api">
         <h2>Basic Cache API</h2>
       </section>
 
@@ -181,7 +181,7 @@
     </section>
 
     <section>
-      <section>
+      <section id="cache-backends">
         <h2>Cache backends</h2>
         <p>Storage for cache items</p>
       </section>
@@ -247,7 +247,7 @@ $chain->get('my-unique-cache-key');
     </section>
 
     <section>
-      <section>
+      <section id="cache-bins">
         <h2>Cache bins</h2>
 
         <p>A container for cache entries with a configurable backend</p>
@@ -322,7 +322,7 @@ $settings['cache']['bins']['render'] = 'cache.backend.null';
     </section>
 
     <section>
-      <section>
+      <section id="cache-invalidation">
         <h2>Cache invalidation</h2>
         <br>
         <blockquote cite="http://martinfowler.com/bliki/TwoHardThings.html">
@@ -458,9 +458,9 @@ else {
     </section>
 
     <section>
-      <section>
+      <section id="render-caching">
         <h2>Render caching</h2>
-        <img src="images/render_cache_example.png">
+        <img width="65%" src="images/render_cache_example.svg">
       </section>
 
       <section>
@@ -472,10 +472,43 @@ else {
         <h2>Output: HTML</h2>
         <img src="images/node_html.png">
       </section>
+
+      <section>
+        <h2>Delay processing</h2>
+        <ul>
+          <li>Render caching can not cache what already happened</li>
+          <li>Do a little as possible initially</li>
+          <li>Only define #theme/#type, #pre_render callbacks and information needed for them</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Process Miss</h2>
+        <ol>
+          <li>Controller/Block/... defines initial render array</li>
+          <li>Renderer::render($build), finds #cache</li>
+          <li>Renderer ask RenderCache for cached result => MISS</li>
+          <li>Render calls #pre_render and then passes to ThemeManager::render()</li>
+          <li>Returned HTML is put in #markup, passed to RenderCache</li>
+          <li>RenderCache removes all keys except #markup, #cache and writes to cache</li>
+          <li>HTML is returned</li>
+        </ol>
+      </section>
+
+      <section>
+        <h2>Process Hit</h2>
+        <ol>
+          <li>Controller/Block/... defines initial render array</li>
+          <li>Renderer::render($build), finds #cache</li>
+          <li>Renderer ask RenderCache for cached result => HIT</li>
+          <li>HTML is returned</li>
+        </ol>
+      </section>
+
     </section>
 
     <section>
-      <section>
+      <section id="cacheability">
         <h2>Cacheability metadata</h2>
         <ul>
           <li>Cache Key</li>
@@ -534,6 +567,8 @@ else {
       <section>
         <h2>How is this stored?</h2>
         <pre><code class="nohighlight">
+          {cache_render}
+
 cid:      entity_view:node:4:full:[languages:language_interface]=en
           :[theme]=bartik:[timezone]=Europe/Berlin:
           [url.query_args:key]=:[user.permissions]=da0b1c64....:
@@ -549,7 +584,7 @@ checksum: 17
 
       <section>
         <h2>Bubbling</h2>
-        <img src="images/render_cache_bubbling.png">
+        <img src="images/render_cache_bubbling.svg">
       </section>
 
       <section>
@@ -574,10 +609,9 @@ checksum: 17
     </section>
 
     <section>
-
-      <section>
+      <section id="invalidation">
         <h2>Invalidation example</h2>
-        <img src="images/invalidation_example_start.png">
+        <img width="65%" src="images/invalidation_example_start.svg">
       </section>
 
       <section>
@@ -591,13 +625,28 @@ checksum: 17
       </section>
 
       <section>
+        <h2>Invalidations</h2>
+        <img width="65%" src="images/invalidation_example_invalidated.svg">
+      </section>
+
+      <section>
         <h2>Next request</h2>
-        <img src="images/invalidation_example_invalidated.png">
+        <img width="65%" src="images/invalidation_example_rebuild_1.svg">
+      </section>
+
+      <section data-transition="none">
+        <h2>Next request</h2>
+        <img width="65%" src="images/invalidation_example_rebuild_2.svg">
+      </section>
+
+      <section data-transition="none">
+        <h2>Next request</h2>
+        <img width="65%" src="images/invalidation_example_rebuild_3.svg">
       </section>
     </section>
 
     <section>
-      <section>
+      <section id="render-cache-concepts">
         <h2>Advanced render caching concepts</h2>
       </section>
 
@@ -644,7 +693,7 @@ checksum: 17
     </section>
 
     <section>
-      <section>
+      <section id="page-cache">
         <h2>Page caching</h2>
       </section>
       <section>
