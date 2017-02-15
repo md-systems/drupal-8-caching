@@ -26,7 +26,7 @@
 <div class="reveal">
   <div class="slides">
     <section id="front">
-      <!--<img src="img/EVENT-LOGO.png" style="border: none; height: 300px" />-->
+      <img data-src="images/mainlogo.png" style="border: none; height: 300px" />
       <h2>Drupal 8 Caching overview</h2>
       <a href="https://www.drupal.org/u/berdir">Sascha Grossenbacher</a> | <a
       href="http://twitter.com/berdir">@berdir</a> | <a
@@ -54,9 +54,9 @@
 
       <section>
         <h2>MD Systems - top contributors</h2>
-        <div class="columns">
+        <div class="columns aspect-1-by-1">
           <div>
-            <img data-src="md_assets/credits.png"/>
+            <img data-src="md_assets/credits.png" style="border: none; width: 600px">
           </div>
           <div>
             <ul>
@@ -68,13 +68,6 @@
               </li>
             </ul>
           </div>
-          <aside class="notes">
-            <ul>
-              <li>top 5 D8 ind. contrib.</li>
-              <li>D8 expert</li>
-              <li>D8 media expert (NP8)</li>
-            </ul>
-          </aside>
         </div>
       </section>
     </section>
@@ -107,6 +100,10 @@
           Store the result of slow calculations so that they do not need to be
           executed again
         </p>
+
+        <p>
+          Documentation: <a href="https://api.drupal.org/api/drupal/core%21core.api.php/group/cache/8.2.x">api.drupal.org caching topic</a>
+        </p>
       </section>
 
       <section>
@@ -138,7 +135,7 @@
         <p>In Drupal 7 and non-OOP code in Drupal 8, the function
           drupal_static() is often used</p>
 
-        <p>In Drupal 8, using a *non-static* property on a service works in the
+        <p>In Drupal 8, using a <strong>non-static</strong> property on a service works in the
           same way</p>
 
       </section>
@@ -248,19 +245,18 @@ $chain->get('my-unique-cache-key');
 
         <h3>Standard bins</h3>
         <ul>
-          <li><code>default</code> - Default, for small-ish, few key variations
+          <li><strong>default</strong>: Default, for small-ish, few key variations
           </li>
-          <li><code>bootstrap</code> - For small caches used on most requests
-          </li>
-          <li><code>data</code> - Bigger caches, many key variations</li>
-          <li><code>render</code> - Used by the render cache and page cache,
-            huge amount of keys
-          </li>
-          <li><code>discovery</code> - Small, frequently used, usually for
+          <li><strong>data</strong>: Bigger caches, many key variations</li>
+          <li><strong>discovery</strong>: Small, frequently used, usually for
             plugins and similar discovery processes
           </li>
-          <li><code>config</code> - Used for caching configuration</li>
-          <li><code>static</code> - Memory only, when persistence is not
+          <li><strong>bootstrap</strong>: For small caches used on most requests</li>
+          <li><strong>render</strong>: Used by the render cache and page cache,
+            huge amount of keys
+          </li>
+          <li><strong>config</strong>: Used for caching configuration</li>
+          <li><strong>static</strong>: Memory only, when persistence is not
             desired
           </li>
         </ul>
@@ -382,7 +378,7 @@ $cache->set($key, $data, strtotime('tomorrow midnight'));
 
         <pre><code class="php">
 // Data must be invalidated if node 1 or the node settings change.
-$cache->set($key, $data, ..., ['node:1', 'config:node.settings', 'my_tag']);
+$cache->set($key, $data, ..., ['node:1', 'config:node.settings']);
 
 // Tag invalidation is across all bins.
 $cache_tag_invalidator->invalidateTags(['my_tag']);
@@ -392,8 +388,6 @@ Cache::invalidateTags(['my_tag']);
 
         <p>Entity and Config cache tags are invalidated automatically. Use
           custom cache tags for unknown amount of cache item variations.</p>
-
-        <p>PS: ... = CacheBackendInterface::CACHE_PERMANENT</p>
 
         <p><a href="https://www.drupal.org/docs/8/api/cache-api/cache-tags">https://www.drupal.org/docs/8/api/cache-api/cache-tags</a>
         </p>
@@ -422,11 +416,9 @@ Cache::invalidateTags(['my_tag']);
       <section>
         <h2>Allow invalid</h2>
 
-        <p>Invalid data can still be used. For invalidate(), expiration and
-          tags.</p>
+        <p>Invalid data can still be used.</p>
 
-        <pre><code class="php">
-$cache = \Drupal::cache()->get('my-key', TRUE);
+        <pre><code class="php">$cache = \Drupal::cache()->get('my-key', TRUE);
 if ($cache && $cache->valid) {
   return $cache->data;
 }
@@ -439,8 +431,7 @@ elseif ($cache) {
 }
 else {
   // Wait or rebuild.
-}
-        </code></pre>
+}</code></pre>
 
         <p>Other uses: Rebuild in background (queue), min-age</p>
 
@@ -450,17 +441,18 @@ else {
     <section>
       <section id="render-caching">
         <h2>Render caching</h2>
-        <img width="65%" src="images/render_cache_example.svg">
+        <img width="65%" data-src="images/render_cache_example.svg">
       </section>
 
       <section>
         <h2>Input: Render arrays</h2>
-        <img src="images/node_render_array.png">
+        <pre><code class="php">$build = $view_builder->view($node, 'full');</code></pre>
+        <img data-src="images/node_render_array.png">
       </section>
 
       <section>
         <h2>Output: HTML</h2>
-        <img src="images/node_html.png">
+        <img data-src="images/node_html.png">
       </section>
 
       <section>
@@ -515,33 +507,30 @@ else {
       <section>
         <h2>Cache Key</h2>
         <p><i>Is my data worth caching? If yes, what identifies my data?</i></p>
-        <img src="images/node_render_array_cache_keys.png">
+        <img data-src="images/node_render_array_cache_keys.png">
       </section>
 
       <section>
         <h2>Cache Contexts</h2>
         <p><i>Does my output vary by something?</i></p>
-        <p>Examples: <code>theme, language, user roles, permissions, URL, query
-          arguments, timezone, ...</code></p>
-        <p>Cache contexts are hierachical: user, user.permissions</p>
-        <p><strong>Danger</strong>: Not setting the correct contexts can result
-          in sensitive data being shown to normal users</p>
-        <p>Default cache contexts: <code>theme, languages:language_interface,
-          user.permissions</code></p>
+        <p>Examples: </p>
+        <pre><code class="nohighlight">theme, language, user roles, permissions, URL, query
+        arguments, timezone, ...</code></pre>
+        <p>Default cache contexts: </p><pre><code class="nohighlight">theme, languages:language_interface, user.permissions</code></pre>
         <p><a href="https://www.drupal.org/developing/api/8/cache/contexts">www.drupal.org/developing/api/8/cache/contexts</a>
         </p>
       </section>
 
       <section>
         <h2>Cache Contexts</h2>
-        <img src="images/node_render_array_cache_contexts.png">
+        <img data-src="images/node_render_array_cache_contexts.png">
       </section>
 
       <section>
         <h2>Cache Tags</h2>
         <p><i>What things does my output depend on?</i></p>
         <p><i>What changes require that my data is regenerated?</i></p>
-        <img src="images/node_render_array_cache_tags.png">
+        <img data-src="images/node_render_array_cache_tags.png">
       </section>
 
       <section>
@@ -564,25 +553,27 @@ cid:      entity_view:node:4:full:[languages:language_interface]=en
           [url.query_args:key]=:[user.permissions]=da0b1c64....:
           [user.roles]=is-super-user
 data:     a:3:{s:7:"#markup";O:25:"Drupal\Core\Render\Markup....
+
 expire:   -1
+
 tags:     config:filter.format.basic_html config:image.style.large
           file:1 node:4 node_view rendered taxonomy_term:1 user:1
           user_view
+
 checksum: 17
         </code></pre>
       </section>
 
       <section>
         <h2>Bubbling</h2>
-        <img src="images/render_cache_bubbling.svg">
+        <img width="65%" data-src="images/render_cache_bubbling.svg">
       </section>
 
       <section>
         <h2>Problem: List cache tags</h2>
         <p>Every node view on your site has the node_list cache tag</p>
-        <p>Add a single "Promoted events" blog that lists event nodes with
-          promote=1</p>
-        <p>Every time *any* node is saved, the block and every page containing
+        <p>Example: "Promoted events" block in sidebar</p>
+        <p>Every time <strong>any</strong> node is saved, the block and every page containing
           that block is invalidated</p>
       </section>
 
@@ -601,7 +592,7 @@ checksum: 17
     <section>
       <section id="invalidation">
         <h2>Invalidation example</h2>
-        <img width="65%" src="images/invalidation_example_start.svg">
+        <img width="65%" data-src="images/invalidation_example_start.svg">
       </section>
 
       <section>
@@ -616,22 +607,22 @@ checksum: 17
 
       <section>
         <h2>Invalidations</h2>
-        <img width="65%" src="images/invalidation_example_invalidated.svg">
+        <img width="65%" data-src="images/invalidation_example_invalidated.svg">
       </section>
 
       <section>
         <h2>Next request</h2>
-        <img width="65%" src="images/invalidation_example_rebuild_1.svg">
+        <img width="65%" data-src="images/invalidation_example_rebuild_1.svg">
       </section>
 
       <section data-transition="none">
         <h2>Next request</h2>
-        <img width="65%" src="images/invalidation_example_rebuild_2.svg">
+        <img width="65%" data-src="images/invalidation_example_rebuild_2.svg">
       </section>
 
       <section data-transition="none">
         <h2>Next request</h2>
-        <img width="65%" src="images/invalidation_example_rebuild_3.svg">
+        <img width="65%" data-src="images/invalidation_example_rebuild_3.svg">
       </section>
     </section>
 
@@ -726,9 +717,9 @@ checksum: 17
 
       <section>
         <h2>Big Pipe Demo Video</h2>
-        <section class="embed-responsive embed-responsive-16by9">
-          <iframe src="https://www.youtube.com/embed/JwzX0Qv6u3A?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
-        </section>
+        <div class="embed-responsive embed-responsive-16by9">
+          <iframe data-src="https://www.youtube.com/embed/JwzX0Qv6u3A?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
+        </div>
       </section>
 
     </section>
