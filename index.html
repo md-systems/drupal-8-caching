@@ -26,7 +26,7 @@
 <div class="reveal">
   <div class="slides">
     <section id="front">
-      <img data-src="images/mainlogo.png" style="border: none; height: 300px" />
+      <img data-src="images/mainlogo.png" style="border: none; height: 300px"/>
       <h2>Drupal 8 Caching overview</h2>
       <a href="https://www.drupal.org/u/berdir">Sascha Grossenbacher</a> | <a
       href="http://twitter.com/berdir">@berdir</a> | <a
@@ -102,7 +102,8 @@
         </p>
 
         <p>
-          Documentation: <a href="https://api.drupal.org/api/drupal/core%21core.api.php/group/cache/8.2.x">api.drupal.org caching topic</a>
+          Documentation: <a href="https://api.drupal.org/api/drupal/core%21core.api.php/group/cache/8.2.x">api.drupal.org
+          caching topic</a>
         </p>
       </section>
 
@@ -178,7 +179,7 @@
         <ul>
           <li>Memory: In-Memory storage, not persisted across requests</li>
           <li>Database: Default storage in the (SQL) database</li>
-          <li>APCu: Shared-Memory, not shared with CLI/multiple servers</li>
+          <li>APCu: Shared-Memory inside the PHP process, not shared with CLI/multiple servers</li>
           <li>Null: No caching at all</li>
         </ul>
       </section>
@@ -189,15 +190,15 @@
           <li><a href="https://www.drupal.org/project/slushi_cache">Slushi
             Cache</a>: A database backend with a configurable max lifetime
           </li>
-          <li><a href="https://www.drupal.org/project/redis">Redis</a>: Drupal 8
-            version maintained by me. Only alpha but heavily used by us.
+          <li><a href="https://www.drupal.org/project/redis">Redis</a>: Standalone "in-memory data structure store". In
+            beta now, and heavily used on our sites.
           </li>
-          <li><a href="https://www.drupal.org/project/memcache">Memcache</a>: No
+          <li><a href="https://www.drupal.org/project/memcache">Memcache</a>: Standalone "memory object caching system".
+            No
             personal experience with the 8.x version. Alpha
           </li>
         </ul>
       </section>
-
 
       <section>
         <h2>ChainedFast Backend</h2>
@@ -239,11 +240,17 @@ $chain->get('my-unique-cache-key');
 
         <p>A container for cache entries with a configurable backend</p>
 
+        <pre><code>
+          \Drupal::cache($bin)->get()
+
+          $container->get("cache.$bin")
+        </code></pre>
+
       </section>
 
       <section>
 
-        <h3>Standard bins</h3>
+        <h3>Standard bins (directly used)</h3>
         <ul>
           <li><strong>default</strong>: Default, for small-ish, few key variations
           </li>
@@ -251,6 +258,12 @@ $chain->get('my-unique-cache-key');
           <li><strong>discovery</strong>: Small, frequently used, usually for
             plugins and similar discovery processes
           </li>
+        </ul>
+      </section>
+
+      <section>
+        <h3>Standard bins (indirectly used)</h3>
+        <ul>
           <li><strong>bootstrap</strong>: For small caches used on most requests</li>
           <li><strong>render</strong>: Used by the render cache and page cache,
             huge amount of keys
@@ -266,6 +279,8 @@ $chain->get('my-unique-cache-key');
         <h2>Define your own</h2>
 
         <pre><code>
+yourmodule.services.yml:
+          
   cache.your_bin:
     class: Drupal\Core\Cache\CacheBackendInterface
     tags:
@@ -497,7 +512,8 @@ else {
         <p>Examples: </p>
         <pre><code class="nohighlight">theme, language, user roles, permissions, URL, query
         arguments, timezone, ...</code></pre>
-        <p>Default cache contexts: </p><pre><code class="nohighlight">theme, languages:language_interface, user.permissions</code></pre>
+        <p>Default cache contexts: </p>
+        <pre><code class="nohighlight">theme, languages:language_interface, user.permissions</code></pre>
         <p><a href="https://www.drupal.org/developing/api/8/cache/contexts">www.drupal.org/developing/api/8/cache/contexts</a>
         </p>
       </section>
@@ -564,7 +580,8 @@ checksum: 17
         <p>Placeholders: news:section:{{ raw_arguments.arg1 }}</p>
         <p>Requires code to define/invalidate cache tags in a
           hook_entity_presave()</p>
-        <p><a href="https://www.drupal.org/project/views_custom_cache_tag">www.drupal.org/project/views_custom_cache_tag</a>
+        <p><a
+          href="https://www.drupal.org/project/views_custom_cache_tag">www.drupal.org/project/views_custom_cache_tag</a>
         </p>
       </section>
 
@@ -579,10 +596,10 @@ checksum: 17
       <section>
         <h2>Changes</h2>
         <ol>
-        <li>A new node (7) is created in the "Sport" section
-          Invalidations: <i>node:sport, node_list</i></li>
-        <li>Node 2 is changed
-          Invalidations: <i>node:2, node:sport, node_list</i></li>
+          <li>A new node (7) is created in the "Sport" section
+            Invalidations: <i>node:sport, node_list</i></li>
+          <li>Node 2 is changed
+            Invalidations: <i>node:2, node:sport, node_list</i></li>
         </ol>
       </section>
 
@@ -660,7 +677,8 @@ checksum: 17
       </section>
       <section>
         <h2>Internal Page Cache</h2>
-        <ul><li>Only for visitors without a session</li>
+        <ul>
+          <li>Only for visitors without a session</li>
           <li>Cache Key is the URL, including all query arguments, caches permanently</li>
           <li>Supports cache tags</li>
           <li>Does not support cache contexts or max age*</li>
@@ -699,7 +717,8 @@ checksum: 17
       <section>
         <h2>Big Pipe Demo Video</h2>
         <div class="embed-responsive embed-responsive-16by9">
-          <iframe data-src="https://www.youtube.com/embed/JwzX0Qv6u3A?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
+          <iframe data-src="https://www.youtube.com/embed/JwzX0Qv6u3A?rel=0&amp;showinfo=0" frameborder="0"
+                  allowfullscreen></iframe>
         </div>
         <p>Video by @WimLeers</p>
       </section>
