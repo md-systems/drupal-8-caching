@@ -12,15 +12,15 @@
 			c8.25,0,15,6.75,15,15V404.141z"/>
 	</g>
 	<g>
-		<path fill="#B8DBAF" d="M820.565,613.607c0,8.25-6.75,15-15,15H45.566c-8.25,0-15-6.75-15-15V463.421c0-8.25,6.75-15,15-15
-			h759.999c8.25,0,15,6.75,15,15V613.607z"/>
+		<path fill="#B8DBAF" d="M820.565,613.607c0,8.25-6.75,15-15,15h-760c-8.25,0-15-6.75-15-15V463.421c0-8.25,6.75-15,15-15h760
+			c8.25,0,15,6.75,15,15V613.607z"/>
 	</g>
-	<text transform="matrix(0.95 0 0 1.1 364.2051 500.2148)" fill="#76986B" font-family="'SourceSansPro-Black'" font-size="30">Business</text>
+	<text transform="matrix(0.8636 0 0 1 364.2051 500.2148)" fill="#76986B" font-family="'SourceSansPro-Black'" font-size="33">Business</text>
 	<g>
-		<text transform="matrix(0.95 0 0 1.1 383.709 132.2148)" fill="#75976B" font-family="'SourceSansPro-Black'" font-size="30">Sport</text>
+		<text transform="matrix(0.8636 0 0 1 383.709 132.2148)" fill="#75976B" font-family="'SourceSansPro-Black'" font-size="33">Sport</text>
 	</g>
 	<g>
-		<text transform="matrix(0.95 0 0 1.1 350.4585 52.1484)" fill="#75976B" font-family="'SourceSansPro-Black'" font-size="30">Frontpage</text>
+		<text transform="matrix(0.8636 0 0 1 350.4585 52.1484)" fill="#75976B" font-family="'SourceSansPro-Black'" font-size="33">Frontpage</text>
 	</g>
 	<g>
 		<g>
@@ -35,21 +35,17 @@
 			<path fill="#D7E8D2" d="M790.724,351.465c0,5.5-4.5,10-10,10h-200c-5.5,0-10-4.5-10-10v-180c0-5.5,4.5-10,10-10h200
 				c5.5,0,10,4.5,10,10V351.465z"/>
 		</g>
-		<text transform="matrix(0.95 0 0 1.1 125.9678 207.9121)" fill="#75976B" font-family="'SourceSansPro-Black'" font-size="22">Article 1</text>
-		<text transform="matrix(0.95 0 0 1.1 378.4668 207.9121)" fill="#75976B" font-family="'SourceSansPro-Black'" font-size="22">Article 2</text>
-		<text transform="matrix(0.95 0 0 1.1 636.0088 207.9121)" fill="#75976B" font-family="'SourceSansPro-Black'" font-size="22">Article 3</text>
-		
-			<text transform="matrix(1 0 0 1 135.7627 332.6724)" fill="#75976B" stroke="#75976B" stroke-width="0.2" stroke-miterlimit="10" font-family="'SourceSansPro-Regular'" font-size="20">[node:1]</text>
-		
-			<text transform="matrix(1 0 0 1 388.2627 332.6724)" fill="#76986B" stroke="#76986B" stroke-width="0.2" stroke-miterlimit="10" font-family="'SourceSansPro-Regular'" font-size="20">[node:2]</text>
-		
-			<text transform="matrix(1 0 0 1 645.8037 332.6724)" fill="#75976B" stroke="#75976B" stroke-width="0.2" stroke-miterlimit="10" font-family="'SourceSansPro-Regular'" font-size="20">[node:3]</text>
+		<text transform="matrix(0.8636 0 0 1 125.9678 207.9121)" fill="#75976B" font-family="'SourceSansPro-Black'" font-size="24.2">Article 6</text>
+		<text transform="matrix(0.8636 0 0 1 378.4668 207.9121)" fill="#75976B" font-family="'SourceSansPro-Black'" font-size="24.2">Article 5</text>
+		<text transform="matrix(0.8636 0 0 1 636.0088 207.9121)" fill="#75976B" font-family="'SourceSansPro-Black'" font-size="24.2">Article 4</text>
+		<text transform="matrix(1 0 0 1 135.7627 332.6729)" fill="#75976B" font-family="'SourceSansPro-Regular'" font-size="20">[node:6]</text>
+		<text transform="matrix(1 0 0 1 388.2627 332.6729)" fill="#76986B" font-family="'SourceSansPro-Regular'" font-size="20">[node:5]</text>
+		<text transform="matrix(1 0 0 1 645.8037 332.6729)" fill="#75976B" font-family="'SourceSansPro-Regular'" font-size="20">[node:4]</text>
 	</g>
+	<text transform="matrix(1 0 0 1 475.5283 598.5166)" fill="#75976B" font-family="'SourceSansPro-Regular'" font-size="20">[node:1 node:2 node:3 node:business]</text>
+	<text transform="matrix(1 0 0 1 388.3804 662.5908)" fill="#75976B" font-family="'SourceSansPro-Regular'" font-size="20">[node:1 node:2 ... node:6 node:sport node:business]</text>
 	
-		<text transform="matrix(1 0 0 1 475.5283 598.5166)" fill="#75976B" stroke="#75976B" stroke-width="0.2" stroke-miterlimit="10" font-family="'SourceSansPro-Regular'" font-size="20">[node:4 node:5 node:6 node:business]</text>
-	
-		<text transform="matrix(1 0 0 1 388.3804 662.5908)" fill="#75976B" stroke="#75976B" stroke-width="0.2" stroke-miterlimit="10" font-family="'SourceSansPro-Regular'" font-size="20">[node:1 node:2 ... node:6 node:sport node:business]</text>
-	
-		<text transform="matrix(1 0 0 1 502.4785 396.0781)" fill="#75976B" stroke="#75976B" stroke-width="0.2" stroke-miterlimit="10" font-family="'SourceSansPro-Regular'" font-size="20">[node:1 node:2 node:3 node:sport]</text>
+		<text transform="matrix(1 0 0 1 388.3804 662.5908)" fill="none" stroke="#75976B" stroke-width="0.2" stroke-miterlimit="10" font-family="'SourceSansPro-Regular'" font-size="20">[node:1 node:2 ... node:6 node:sport node:business]</text>
+	<text transform="matrix(1 0 0 1 502.4785 396.0781)" fill="#75976B" font-family="'SourceSansPro-Regular'" font-size="20">[node:4 node:5 node:6 node:sport]</text>
 </g>
 </svg>

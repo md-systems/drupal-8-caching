@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="850px" height="695px" viewBox="0 0 850 695" enable-background="new 0 0 850 695" xml:space="preserve">
+<g>
+	<path fill="#232323" d="M850,675c0,11-9,20-20,20H20c-11,0-20-9-20-20V20C0,9,9,0,20,0h810c11,0,20,9,20,20V675z"/>
+</g>
+<g>
+	<path fill="none" stroke="#F26B60" stroke-width="8.5039" stroke-miterlimit="10" d="M523.625,236.375H639.5c11,0,20,9,20,20V283"
+		/>
+</g>
+<g>
+	<g>
+		<path fill="none" stroke="#F26B60" stroke-width="8.504" stroke-miterlimit="10" d="M526.911,614H639.5c11,0,20-9,20-20v-20.5"/>
+		<g>
+			<polygon fill="#F26B60" points="531.874,630.962 502.5,614 531.874,597.038 			"/>
+		</g>
+	</g>
+</g>
+<g>
+	<line fill="#BCBEC0" x1="433.147" y1="125.666" x2="433.147" y2="166.205"/>
+	<g>
+		
+			<line fill="none" stroke="#BCBEC0" stroke-width="8.504" stroke-miterlimit="10" x1="433.147" y1="125.666" x2="433.147" y2="147.896"/>
+		<g>
+			<polygon fill="#BCBEC0" points="420.426,144.174 433.147,166.205 445.868,144.174 			"/>
+		</g>
+	</g>
+</g>
+<g>
+	<path fill="#8CCAEF" d="M502.99,649.5c0,5.5-4.5,10-10,10H372.991c-5.5,0-10-4.5-10-10v-70c0-5.5,4.5-10,10-10H492.99
+		c5.5,0,10,4.5,10,10V649.5z"/>
+</g>
+<g>
+	<rect x="363.213" y="607.273" fill="none" width="139.555" height="14.453"/>
+	<text transform="matrix(1 0 0 1 395.4702 621.293)" fill="#46738D" font-family="'SourceSansPro-Bold'" font-size="20">Finished</text>
+</g>
+<g>
+	<g>
+		<g>
+			<path fill="#CAE3C4" d="M260.145,115.5c0,5.5-4.5,10-10,10h-120c-5.5,0-10-4.5-10-10v-70c0-5.5,4.5-10,10-10h120
+				c5.5,0,10,4.5,10,10V115.5z"/>
+		</g>
+		<rect x="120.301" y="61.035" fill="none" width="139.688" height="38.931"/>
+		<text transform="matrix(1 0 0 1 165.5454 75.0542)"><tspan x="0" y="0" fill="#75976B" font-family="'SourceSansPro-Bold'" font-size="20">Entity</tspan><tspan x="-19.429" y="24" fill="#75976B" font-family="'SourceSansPro-Bold'" font-size="20">Definition</tspan></text>
+	</g>
+	<g>
+		<line fill="#BCBEC0" x1="260" y1="80.5" x2="362.5" y2="80.5"/>
+		<g>
+			<line fill="none" stroke="#BCBEC0" stroke-width="8.504" stroke-miterlimit="10" x1="260" y1="80.5" x2="338.089" y2="80.5"/>
+			<g>
+				<polygon fill="#BCBEC0" points="333.126,97.461 362.5,80.5 333.126,63.539 				"/>
+			</g>
+		</g>
+	</g>
+</g>
+<g>
+	<g>
+		<path fill="#CAE3C4" d="M502.991,115.5c0,5.5-4.5,10-10,10h-120c-5.5,0-10-4.5-10-10v-70c0-5.5,4.5-10,10-10h120
+			c5.5,0,10,4.5,10,10V115.5z"/>
+	</g>
+	<rect x="363.213" y="47.164" fill="none" width="139.555" height="66.672"/>
+	<text transform="matrix(1 0 0 1 391.8916 61.1836)"><tspan x="0" y="0" fill="#75976B" font-family="'SourceSansPro-Bold'" font-size="20">Renderer</tspan><tspan x="-13.27" y="24" fill="#75976B" font-family="'SourceSansPro-Bold'" font-size="20">Start render </tspan><tspan x="7.13" y="48" fill="#75976B" font-family="'SourceSansPro-Bold'" font-size="20">process</tspan></text>
+</g>
+<g>
+	<path fill="#F6A0A3" d="M729.854,363.036c0,5.5-4.5,10-10,10h-120c-5.5,0-10-4.5-10-10v-70c0-5.5,4.5-10,10-10h120
+		c5.5,0,10,4.5,10,10V363.036z"/>
+</g>
+<rect x="590.077" y="308.611" fill="none" width="139.555" height="38.85"/>
+<text transform="matrix(1 0 0 1 635.2539 322.6309)"><tspan x="0" y="0" fill="#A65D5C" font-family="'SourceSansPro-Bold'" font-size="20">EVB</tspan><tspan x="-20.379" y="24" fill="#A65D5C" font-family="'SourceSansPro-Bold'" font-size="20">Build</tspan></text>
+<polygon fill="#FFF2CD" points="432.991,307.326 342.28,236.615 432.991,165.904 523.702,236.615 "/>
+<rect x="344.047" y="211.229" fill="none" width="177.887" height="62.772"/>
+<text transform="matrix(1 0 0 1 374.3511 225.2485)"><tspan x="0" y="0" fill="#BFA65F" font-family="'SourceSansPro-Bold'" font-size="20">RenderCache</tspan><tspan x="22.43" y="24" fill="#BFA65F" font-family="'SourceSansPro-Bold'" font-size="20">Is Cache</tspan><tspan x="38.739" y="48" fill="#BFA65F" font-family="'SourceSansPro-Bold'" font-size="20">HIT?</tspan></text>
+<g>
+	<path fill="#F6A0A3" d="M729.854,463.119c0,5.5-4.5,10-10,10h-120c-5.5,0-10-4.5-10-10v-70c0-5.5,4.5-10,10-10h120
+		c5.5,0,10,4.5,10,10V463.119z"/>
+</g>
+<rect x="590.076" y="396.811" fill="none" width="139.556" height="62.617"/>
+<text transform="matrix(1 0 0 1 591.1543 410.8301)"><tspan x="0" y="0" fill="#A65D5C" font-family="'SourceSansPro-Bold'" font-size="20">ThemeManager</tspan><tspan x="27.93" y="24" fill="#A65D5C" font-family="'SourceSansPro-Bold'" font-size="20">Generate</tspan><tspan x="43.66" y="48" fill="#A65D5C" font-family="'SourceSansPro-Bold'" font-size="20">HTML</tspan></text>
+<g>
+	<path fill="#F6A0A3" d="M729.854,563.963c0,5.5-4.5,10-10,10h-120c-5.5,0-10-4.5-10-10v-70c0-5.5,4.5-10,10-10h120
+		c5.5,0,10,4.5,10,10V563.963z"/>
+</g>
+<rect x="590.244" y="509.629" fill="none" width="139.22" height="38.668"/>
+<text transform="matrix(1 0 0 1 601.2148 523.6484)"><tspan x="0" y="0" fill="#A65D5C" font-family="'SourceSansPro-Bold'" font-size="20">RenderCache</tspan><tspan x="5.99" y="24" fill="#A65D5C" font-family="'SourceSansPro-Bold'" font-size="20">Write Cache</tspan></text>
+<g>
+	<g>
+		<path fill="none" stroke="#A1D293" stroke-width="8.504" stroke-miterlimit="10" d="M342.5,236.5h-117c-11,0-20,9-20,20V594
+			c0,11,9,20,20,20h112.589"/>
+		<g>
+			<polygon fill="#A1D293" points="333.126,630.962 362.5,614 333.126,597.038 			"/>
+		</g>
+	</g>
+</g>
+<g>
+	<rect x="536" y="204" fill="none" width="116" height="18"/>
+	<text transform="matrix(1 0 0 1 567.9727 220.8237)" fill="#FFFFFF" font-family="'SourceSansPro-Bold'" font-size="24">MISS</text>
+</g>
+<g>
+	<rect x="213" y="204" fill="none" width="116" height="18"/>
+	<text transform="matrix(1 0 0 1 252.6758 220.8237)" fill="#FFFFFF" font-family="'SourceSansPro-Bold'" font-size="24">HIT</text>
+</g>
+</svg>

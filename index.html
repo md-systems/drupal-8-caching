@@ -465,26 +465,7 @@ else {
       </section>
 
       <section>
-        <h2>Process Miss</h2>
-        <ol>
-          <li>Controller/Block/... defines initial render array</li>
-          <li>Renderer::render($build), finds #cache</li>
-          <li>Renderer ask RenderCache for cached result => MISS</li>
-          <li>Render calls #pre_render and then passes to ThemeManager::render()</li>
-          <li>Returned HTML is put in #markup, passed to RenderCache</li>
-          <li>RenderCache removes all keys except #markup, #cache and writes to cache</li>
-          <li>HTML is returned</li>
-        </ol>
-      </section>
-
-      <section>
-        <h2>Process Hit</h2>
-        <ol>
-          <li>Controller/Block/... defines initial render array</li>
-          <li>Renderer::render($build), finds #cache</li>
-          <li>Renderer ask RenderCache for cached result => HIT</li>
-          <li>HTML is returned</li>
-        </ol>
+        <img width="80%" data-src="images/render_cache_process.svg">
       </section>
 
     </section>
@@ -720,6 +701,7 @@ checksum: 17
         <div class="embed-responsive embed-responsive-16by9">
           <iframe data-src="https://www.youtube.com/embed/JwzX0Qv6u3A?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
         </div>
+        <p>Video by @WimLeers</p>
       </section>
 
     </section>
