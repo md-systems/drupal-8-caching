@@ -727,21 +727,38 @@ checksum: 17
 
     <section>
       <section>
+        <h3>So, which of those caching methods do I use now?</h3>
+      </section>
+
+      <section>
+          <h3>All of them!</h3>
+          <p>None of those features are exclusive, they work best when combined together. And Drupal 8 does that
+            automatically, based on cacheability metadata, with almost zero configuration.</p>
+      </section>
+    </section>
+
+    <section>
+      <section>
         <h3>But this is all so complicated, I just want to build my D8 site and not worry about caching!</h3>
       </section>
 
       <section>
         <img data-src="images/dont_panic.jpg" width="65%" style="border: none">
-        <p style="font-size: small">Hitchhikers Guide to the Galaxy, http://geekifyinc.com/product/hitchhikers-guide-to-the-galaxy-tablet-ereader-cover/</p>
+        <p style="font-size: small">Hitchhikers Guide to the Galaxy,
+          http://geekifyinc.com/product/hitchhikers-guide-to-the-galaxy-tablet-ereader-cover/</p>
       </section>
 
       <section>
         <h2>You can!</h2>
         <p>Knowing some of these concepts can help, but...</p>
         <ul>
-          <li>Site builders: All those things exist so that Drupal 8 is able to automatically cache and invalidate all your views, blocks, content, ..</li>
+          <li>Site builders: All those things exist so that Drupal 8 is able to automatically cache and invalidate all
+            your views, blocks, content, ..
+          </li>
           <li>Developers: You only need to think about caching for your own functionality</li>
-          <li>Frontend: Disable CSS/JS aggregation, twig and render cache (see example.settings.local.php) and caching is mostly out of your way *</li>
+          <li>Frontend: Disable CSS/JS aggregation, twig and render cache (see example.settings.local.php) and caching
+            is mostly out of your way *
+          </li>
 
           <p style="font-size: smaller">* Remember to test with caching enabled before deploying.</p>
         </ul>
