@@ -26,7 +26,7 @@
 <div class="reveal">
   <div class="slides">
 
-      <section id="front" data-background="images/cover.png" data-background-color="white">
+      <section id="front">
         <h2>Drupal 8+ Caching overview</h2>
         <a href="https://www.drupal.org/u/berdir">Sascha Grossenbacher</a> | <a
         href="http://twitter.com/berdir">@berdir</a> | <a
@@ -46,9 +46,6 @@
             contrib projects
           </li>
           <li>"Core generalist", top 5 D8 contributor</li>
-          <li>#3 on <a
-            href="http://drupal.stackexchange.com/users/31/berdir">Drupal
-            answers</a></li>
         </ul>
       </section>
 
@@ -60,8 +57,8 @@
           </div>
           <div>
             <ul>
-              <li>D8 expert</li>
-              <li>D8 media expert - lots of media clients</li>
+              <li>Drupal expert</li>
+              <li>Drupal media expert - lots of media clients</li>
               <li>20% of every project to the community</li>
               <li>Full projects, audits, bootstrap weeks, consulting,
                 architecture, ...
@@ -102,7 +99,7 @@
         </p>
 
         <p>
-          Documentation: <a href="https://api.drupal.org/api/drupal/core%21core.api.php/group/cache/8.2.x">api.drupal.org
+          Documentation: <a href="https://api.drupal.org/api/drupal/core%21core.api.php/group/cache">api.drupal.org
           caching topic</a>
         </p>
       </section>
@@ -187,15 +184,11 @@
       <section>
         <h3>Contrib</h3>
         <ul>
-          <li><a href="https://www.drupal.org/project/slushi_cache">Slushi
-            Cache</a>: A database backend with a configurable max lifetime
-          </li>
           <li><a href="https://www.drupal.org/project/redis">Redis</a>: Standalone "in-memory data structure store". In
             beta now, and heavily used on our sites.
           </li>
           <li><a href="https://www.drupal.org/project/memcache">Memcache</a>: Standalone "memory object caching system".
-            No
-            personal experience with the 8.x version. Alpha
+            No personal experience with the 8.x version.
           </li>
         </ul>
       </section>
@@ -302,8 +295,8 @@ $settings['cache']['bins']['render'] = 'cache.backend.null';
 
         </code></pre>
 
-        <p>How to configure redis (on platform.sh): <a
-          href="https://docs.platform.sh/frameworks/drupal8/redis.html">https://docs.platform.sh/frameworks/drupal8/redis.html</a>
+        <p>How to configure Redis: <a
+          href="https://git.drupalcode.org/project/redis/-/blob/8.x-1.x/README.md">See README.md</a>
         </p>
 
       </section>
@@ -404,7 +397,7 @@ Cache::invalidateTags(['my_tag']);
         <p>Entity and Config cache tags are invalidated automatically. Use
           custom cache tags for unknown amount of cache item variations.</p>
 
-        <p><a href="https://www.drupal.org/docs/8/api/cache-api/cache-tags">https://www.drupal.org/docs/8/api/cache-api/cache-tags</a>
+        <p><a href="https://www.drupal.org/docs/drupal-apis/cache-api/cache-tags">www.drupal.org/docs/drupal-apis/cache-api/cache-tags</a>
         </p>
       </section>
 
@@ -496,7 +489,7 @@ else {
         </ul>
 
         <p><a
-          href="https://www.drupal.org/developing/api/8/render/arrays/cacheability">www.drupal.org/developing/api/8/render/arrays/cacheability</a>
+          href="https://www.drupal.org/docs/drupal-apis/render-api/cacheability-of-render-arrays">www.drupal.org/docs/drupal-apis/render-api/cacheability-of-render-arrays</a>
         </p>
       </section>
 
@@ -514,7 +507,7 @@ else {
         arguments, timezone, ...</code></pre>
         <p>Default cache contexts: </p>
         <pre><code class="nohighlight">theme, languages:language_interface, user.permissions</code></pre>
-        <p><a href="https://www.drupal.org/developing/api/8/cache/contexts">www.drupal.org/developing/api/8/cache/contexts</a>
+        <p><a href="https://www.drupal.org/docs/drupal-apis/cache-api/cache-contexts">www.drupal.org/docs/drupal-apis/cache-api/cache-contexts</a>
         </p>
       </section>
 
@@ -578,7 +571,8 @@ checksum: 17
         <h2>Solution: Views Custom Cache Tag</h2>
         <p>Allows to use a configurable cache, e.g. event:promoted</p>
         <p>Placeholders: news:section:{{ raw_arguments.arg1 }}</p>
-        <p>Requires code to define/invalidate cache tags in a
+        <p>Drupal 9+ now has built-in bundle cache tags, like node_list:article</p>
+        <p>More specific use cases requires code to define/invalidate cache tags in a
           hook_entity_presave()</p>
         <p><a
           href="https://www.drupal.org/project/views_custom_cache_tag">www.drupal.org/project/views_custom_cache_tag</a>
